@@ -64,6 +64,7 @@ POSTPROCESS_NONE=95
 POSTPROCESS_ERROR=94
 
 mediaExtensions = ['.mkv', '.avi', '.divx', '.xvid', '.mov', '.wmv', '.mp4', '.mpg', '.mpeg', '.vob', '.iso', '.m4v']
+bannedMediaExtensions = ['.wmv']
 
 verbose = False
 
@@ -108,6 +109,15 @@ def contains_media(list):
 		else:
 			continue
 	return False
+    
+# Check if banned media files present in the list of files
+def contains_banned_media(list):
+    for item in list:
+        if os.path.splittext(item)[1] in bannedMediaExtensions:
+            return True
+        else:
+            continue
+    return False
 
 # Check if executable files present in the list of files
 # Exception: rename.bat (.sh, .exe) are ignored, sometimes valid posts include them.
@@ -212,7 +222,7 @@ def detect_fake(name, dir):
 	filelist.extend(list_all_rars(dir))
 	for subdir in dirlist:
 		filelist.extend(list_all_rars(subdir))
-	fake = contains_media(filelist) and contains_executable(filelist)
+	fake = (contains_media(filelist) and contains_executable(filelist)) or contains_banned_media(filelist)
 	if fake:
 		print('[WARNING] Download has media files and executables')
 	return fake
