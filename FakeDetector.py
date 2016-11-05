@@ -97,7 +97,7 @@ def start_check():
 		if os.environ.get('NZBPR_PPSTATUS_FAKE') == 'yes':
 			# Print the message again during post-processing to add it into the post-processing log
 			# (which is then can be used by notification scripts such as EMail.py)
-			print('[WARNING] Download has media files and executables')
+			print('[WARNING] Download has media files and executables or contains a banned extension')
 		clean_up()
 		sys.exit(POSTPROCESS_SUCCESS)
 
@@ -235,7 +235,7 @@ def detect_fake(name, dir):
 		filelist.extend(list_all_rars(subdir))
 	fake = (contains_media(filelist) and contains_executable(filelist)) or contains_banned_media(filelist)
 	if fake:
-		print('[WARNING] Download has media files and executables')
+		print('[WARNING] Download has media files and executables or contains a banned extension')
 	return fake
 
 # Establish connection to NZBGet via RPC-API
