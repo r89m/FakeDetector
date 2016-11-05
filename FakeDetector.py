@@ -47,7 +47,7 @@
 ##############################################################################
 ### OPTIONS                                                                ###
 
-# Banned extensions
+# Banned extensions.
 #
 # Downloads which contain files with any of the following extensions will be marked as fake.
 # Extensions must be separated by a comma (eg: .wmv, .divx).
@@ -75,7 +75,7 @@ POSTPROCESS_NONE=95
 POSTPROCESS_ERROR=94
 
 mediaExtensions = ['.mkv', '.avi', '.divx', '.xvid', '.mov', '.wmv', '.mp4', '.mpg', '.mpeg', '.vob', '.iso', '.m4v']
-bannedMediaExtensions = movies_format=os.environ['NZBPO_BANNEDEXTENSIONS'].replace(' ', '').split(',')
+bannedMediaExtensions = os.environ.get('NZBPO_BANNEDEXTENSIONS').replace(' ', '').split(',')
 
 verbose = False
 
